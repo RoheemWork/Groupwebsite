@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Invoice - DripCase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="left">
+      <a href="index.html" class="back-to-home-link">← Back to Home</a>
+    </div>
+    <div class="center">
+      <a href="index.html"><img src="assets/logo.png" alt="DripCase Logo" class="logo" /></a>
+    </div>
+    <div class="right"></div>
+  </header>
+
+  <main class="invoice-main">
+    <div class="invoice-container">
+      <div class="invoice-header">
+        <h1>Invoice</h1>
+        <div class="invoice-company-details">
+          <h2 id="invoiceCompany">DripCase</h2>
+          <p>Stylish protection for your devices.</p>
+        </div>
+        <div class="invoice-meta">
+          <p><strong>Invoice Number:</strong> <span id="invoiceNumber"></span></p>
+          <p><strong>Date:</strong> <span id="invoiceDate"></span></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="invoice-body">
+        <div class="billing-info">
+          <h3>Bill To:</h3>
+          <p id="invoiceCustomerName"></p>
+          <p id="invoiceCustomerAddress"></p>
+          <p><strong>TRN:</strong> <span id="invoiceTrn"></span></p>
+        </div>
+
+        <table id="invoiceItemsTable">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <div class="invoice-totals">
+          <p>Subtotal: <span id="invoiceSubtotal"></span></p>
+          <p>Tax (15%): <span id="invoiceTax"></span></p>
+          <p class="total-cost">Total: <span id="invoiceTotal"></span></p>
+        </div>
+      </div>
+      
+      <div class="invoice-footer">
+        <p>Thank you for your business!</p>
+        <p class="email-notification">A copy of this invoice has been sent to your email.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2023 DripCase. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

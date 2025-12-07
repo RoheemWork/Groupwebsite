@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - DripCase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="left"></div>
+    <div class="center">
+      <a href="index.html"><img src="assets/logo.png" alt="DripCase Logo" class="logo" /></a>
+    </div>
+    <div class="right"></div>
+  </header>
+
+  <main class="auth-page">
+    <div class="auth-container">
+      <div class="logo-container">
+        <img src="assets/logo.png" alt="DripCase Logo" class="logo" />
+      </div>
+      
+      <h2>Create Your Account</h2>
+      
+      <form id="registrationForm">
+        <div class="form-row">
+          <input type="text" id="firstName" placeholder="First Name" required>
+          <input type="text" id="lastName" placeholder="Last Name" required>
+        </div>
+        
+        <input type="date" id="dob" required>
+        <select id="gender" required>
+          <option value="">Select Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+        
+        <input type="tel" id="phone" placeholder="Phone Number" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="text" id="trn" placeholder="TRN (000-000-000)" required>
+        <input type="password" id="password" placeholder="Password (min 8 chars)" required>
+
+        <button type="button" class="submit-btn" id="registerBtn">Register</button>
+      </form>
+      
+      <div class="auth-links">
+        <p>Already have an account? <a href="login.html" class="link">Login here</a></p>
+      </div>
+      
+      <p id="regError" class="error-message"></p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2023 DripCase. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

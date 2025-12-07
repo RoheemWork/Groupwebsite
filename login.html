@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - DripCase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="left"></div>
+    <div class="center">
+      <a href="index.html"><img src="assets/logo.png" alt="DripCase Logo" class="logo" /></a>
+    </div>
+    <div class="right"></div>
+  </header>
+
+  <main class="auth-page">
+    <div class="auth-container">
+      <div class="logo-container">
+        <img src="assets/logo.png" alt="DripCase Logo" class="logo" />
+      </div>
+      
+      <h2>Login to Your Account</h2>
+      
+      <div class="error-message" id="loginError"></div>
+      <div class="success-message" id="loginSuccess"></div>
+      
+      <form id="loginForm">
+        <input type="text" placeholder="TRN (000-000-000)" id="loginTrn" required>
+        <input type="password" placeholder="Password" id="loginPassword" required>
+        
+        <div class="attempts-remaining" id="attemptsRemaining">
+          Attempts remaining: 3
+        </div>
+
+        <button type="submit" class="submit-btn" id="loginBtn">Login</button>
+      </form>
+      
+      <div class="auth-links">
+        <p>Forgot your password? <span class="link" id="openResetPassword">Reset Password</span></p>
+        <p>Don't have an account? <a href="register.html" class="link">Register here</a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Reset Password Modal -->
+  <div id="resetPasswordModal" class="modal">
+    <div class="modal-content">
+      <span class="close" data-close="resetPasswordModal">&times;</span>
+      <h2>Reset Password</h2>
+      <p>Enter your TRN to reset your password</p>
+      
+      <div class="error-message" id="resetError"></div>
+      <div class="success-message" id="resetSuccess"></div>
+      
+      <form id="resetPasswordForm">
+        <input type="text" id="resetTrn" placeholder="TRN (000-000-000)" required>
+        <input type="password" id="newPassword" placeholder="New Password" required>
+        <input type="password" id="confirmPassword" placeholder="Confirm New Password" required>
+        <button type="submit" class="submit-btn">Reset Password</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2023 DripCase. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DripCase - Stylish Tech Accessories</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Skip to content link for accessibility -->
+  <a href="#products" class="skip-to-content">Skip to content</a>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="left">
+      <img src="assets/menu-icon-19353.png" class="icon" id="menuIcon" alt="Menu" />
+      <img src="assets/search-icon-png-9969.png" class="icon" id="searchIcon" alt="Search" />
+    </div>
+
+    <div class="center">
+      <a href="index.html"><img src="assets/logo.png" alt="DripCase Logo" class="logo" /></a>
+    </div>
+
+    <div class="right">
+      <div id="profileContainer" class="profile-container">
+        <img id="profileIcon" src="assets/account-icon-25499.png" alt="Account" />
+        <span id="profileInitial" class="profile-initial"></span>
+        <span id="profileName" class="profile-name"></span>
+      </div>
+
+      <!-- Cart icon links to cart page -->
+      <a href="cart.html" class="icon-link">
+        <img src="assets/grocery-cart-icon-7502.png" class="icon" id="cartIcon" alt="Cart" />
+      </a>
+    </div>
+  </header>
+
+  <!-- Dropdowns -->
+  <div class="dropdown" id="menuDropdown">
+    <strong>Shop By Type</strong>
+    <a href="#products">Phone Cases</a>
+    <a href="#products">AirPod Covers</a>
+    <a href="#products">Laptop Skins</a>
+    <strong>Shop By Device</strong>
+    <a href="#products">iPhone</a>
+    <a href="#products">Samsung</a>
+    <a href="#products">AirPods</a>
+  </div>
+
+  <div class="dropdown" id="searchDropdown">
+    <input type="text" placeholder="Search products..." />
+    <div class="search-results"></div>
+  </div>
+
+  <!-- Full-screen slideshow -->
+  <section class="slideshow">
+    <div class="slide active"><img src="assets/blue.png" alt="Case 1"></div>
+    <div class="slide"><img src="assets/red.png" alt="Case 2"></div>
+    <div class="slide"><img src="assets/yellow.png" alt="Case 3"></div>
+    <button class="prev">❮</button>
+    <button class="next">❯</button>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products" id="products">
+    <h2>Our Products</h2>
+
+    <!-- iPhone Cases -->
+    <h3>Iphone Cases</h3>
+    <div class="product-grid phone-cases-grid">
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/iphone red.png" alt="iPhone Red Case">
+          <button class="hoverAddBtn addToCartBtn" data-name="iPhone Red Case" data-price="1500">Add to Cart</button>
+        </div>
+        <p>iPhone Red Case</p>
+        <p>$1500.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/iphone green.png" alt="iPhone Green Case">
+          <button class="hoverAddBtn addToCartBtn" data-name="iPhone Green Case" data-price="1500">Add to Cart</button>
+        </div>
+        <p>iPhone Green Case</p>
+        <p>$1500.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/iphone orange.png" alt="iPhone Orange Case">
+          <button class="hoverAddBtn addToCartBtn" data-name="iPhone Orange Case" data-price="1500">Add to Cart</button>
+        </div>
+        <p>iPhone Orange Case</p>
+        <p>$1500.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/iphone blue.png" alt="iPhone Blue Case">
+          <button class="hoverAddBtn addToCartBtn" data-name="iPhone Blue Case" data-price="1500">Add to Cart</button>
+        </div>
+        <p>iPhone Blue Case</p>
+        <p>$1500.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/iphone purple.png" alt="iPhone Purple Case">
+          <button class="hoverAddBtn addToCartBtn" data-name="iPhone Purple Case" data-price="1500">Add to Cart</button>
+        </div>
+        <p>iPhone Purple Case</p>
+        <p>$1500.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/iphone grey.png" alt="iPhone Grey Case">
+          <button class="hoverAddBtn addToCartBtn" data-name="iPhone Grey Case" data-price="1500">Add to Cart</button>
+        </div>
+        <p>iPhone Grey Case</p>
+        <p>$1500.00</p>
+      </div>
+    </div>
+
+    <!-- Samsung S25 Cases -->
+    <h3>Samsung S25 Cases</h3>
+    <div class="product-grid phone-cases-grid">
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/sam red.png" alt="Samsung Red Case">
+          <button class="hoverAddBtn addToCartBtn" data-name="Samsung S25 Red Case" data-price="1500">Add to Cart</button>
+        </div>
+        <p>Samsung S25 Red Case</p>
+        <p>$1500.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/sam orange.png" alt="Samsung Orange Case">
+          <button class="hoverAddBtn addToCartBtn" data-name="Samsung S25 Orange Case" data-price="1500">Add to Cart</button>
+        </div>
+        <p>Samsung S25 Orange Case</p>
+        <p>$1500.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/sam yellow.png" alt="Samsung Yellow Case">
+          <button class="hoverAddBtn addToCartBtn" data-name="Samsung S25 Yellow Case" data-price="1500">Add to Cart</button>
+        </div>
+        <p>Samsung S25 Yellow Case</p>
+        <p>$1500.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/sam green.png" alt="Samsung Green Case">
+          <button class="hoverAddBtn addToCartBtn" data-name="Samsung S25 Green Case" data-price="1500">Add to Cart</button>
+        </div>
+        <p>Samsung S25 Green Case</p>
+        <p>$1500.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/sam blue.png" alt="Samsung Blue Case">
+          <button class="hoverAddBtn addToCartBtn" data-name="Samsung S25 Blue Case" data-price="1500">Add to Cart</button>
+        </div>
+        <p>Samsung S25 Blue Case</p>
+        <p>$1500.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/sam purple.png" alt="Samsung Purple Case">
+          <button class="hoverAddBtn addToCartBtn" data-name="Samsung S25 Purple Case" data-price="1500">Add to Cart</button>
+        </div>
+        <p>Samsung S25 Purple Case</p>
+        <p>$1500.00</p>
+      </div>
+    </div>
+
+    <!-- AirPod Covers -->
+    <h3>AirPod Covers</h3>
+    <div class="product-grid airpods-grid">
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/airpod black.png" alt="AirPods Black Cover">
+          <button class="hoverAddBtn addToCartBtn" data-name="AirPods Black Cover" data-price="1000">Add to Cart</button>
+        </div>
+        <p>AirPods Black Cover</p>
+        <p>$1000.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/airpod blue.png" alt="AirPods Blue Cover">
+          <button class="hoverAddBtn addToCartBtn" data-name="AirPods Blue Cover" data-price="1000">Add to Cart</button>
+        </div>
+        <p>AirPods Blue Cover</p>
+        <p>$1000.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/airpod green.png" alt="AirPods Green Cover">
+          <button class="hoverAddBtn addToCartBtn" data-name="AirPods Green Cover" data-price="1000">Add to Cart</button>
+        </div>
+        <p>AirPods Green Cover</p>
+        <p>$1000.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/airpod red.png" alt="AirPods Red Cover">
+          <button class="hoverAddBtn addToCartBtn" data-name="AirPods Red Cover" data-price="1000">Add to Cart</button>
+        </div>
+        <p>AirPods Red Cover</p>
+        <p>$1000.00</p>
+      </div>
+    </div>
+
+    <!-- Laptop Skins -->
+    <h3>Laptop Skins</h3>
+    <div class="product-grid laptop-skins-grid">
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/lap skin blue.png" alt="MacBook Skin Blue">
+          <button class="hoverAddBtn addToCartBtn" data-name="MacBook Skin Blue" data-price="2000">Add to Cart</button>
+        </div>
+        <p>MacBook Skin Blue</p>
+        <p>$2000.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/lap skin brown.png" alt="MacBook Skin Brown">
+          <button class="hoverAddBtn addToCartBtn" data-name="MacBook Skin Brown" data-price="2000">Add to Cart</button>
+        </div>
+        <p>MacBook Skin Brown</p>
+        <p>$2000.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/lap skin red.png" alt="MacBook Skin Red">
+          <button class="hoverAddBtn addToCartBtn" data-name="MacBook Skin Red" data-price="2000">Add to Cart</button>
+        </div>
+        <p>MacBook Skin Red</p>
+        <p>$2000.00</p>
+      </div>
+      <div class="product">
+        <div class="img-container">
+          <img src="assets/lap skin green.png" alt="MacBook Skin Green">
+          <button class="hoverAddBtn addToCartBtn" data-name="MacBook Skin Green" data-price="2000">Add to Cart</button>
+        </div>
+        <p>MacBook Skin Green</p>
+        <p>$2000.00</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section class="about-section">
+    <h2>About DripCase</h2>
+    <div class="about-box">
+      <p>
+        DripCase provides stylish, durable tech accessories built for everyone. 
+        Our designs bring together protection, personality, and premium quality.  
+        We offer high-quality phone cases, AirPod covers, and laptop skins crafted 
+        to fit your style and keep your devices protected.
+      </p>
+      <p>
+        For questions or feedback, please <a href="mailto:contact@dripcase.com">contact us</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>DripCase</h3>
+        <p>Stylish protection for your devices.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="cart.html">Cart</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Account</h3>
+        <ul>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="register.html">Register</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 DripCase. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Link to the shared JavaScript file -->
+  <script src="scripts.js"></script>
+</body>
+</html>
