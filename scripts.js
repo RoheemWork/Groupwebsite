@@ -24,10 +24,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /**
    * Updates the navbar to show the logged-in user's profile or the default icon.
-   * This function is now safe to call on any page.
    */
   function updateProfileDisplay(user) {
-    // FIX: Check if profile elements exist on the page before trying to use them.
+    // Check if profile elements exist on the page before trying to use them.
     if (!profileIcon || !profileInitial || !profileName) {
       return;
     }
@@ -64,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return null;
   }
 
-  // FIX: Only add the event listener if the profile container exists on the page.
+  // Only add the event listener if the profile container exists on the page.
   if (profileContainer) {
     profileContainer.addEventListener('click', () => {
       const isLoggedIn = profileName.style.display !== "none";
@@ -163,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // --- PASSWORD RESET (for login.html) ---
+  // PASSWORD RESET (for login.html) 
   const resetPasswordModal = document.getElementById('resetPasswordModal');
   const openResetPasswordBtn = document.getElementById('openResetPassword');
   if (openResetPasswordBtn) {
@@ -539,4 +538,5 @@ document.addEventListener('DOMContentLoaded', function() {
   // --- INITIALIZE ON PAGE LOAD ---
   checkLoginStatus();
   updateCartCount();
+
 });
