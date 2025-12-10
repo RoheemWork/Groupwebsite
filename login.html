@@ -73,6 +73,141 @@
     </div>
   </footer>
 
-  <script src="scripts.js"></script>
+  <!-- =================================================================== -->
+  <!-- JAVASCRIPT FOR login.html -->
+  <!-- =================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // --- UTILITY FUNCTIONS ---
+      function showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        notification.style.cssText = `
+          position: fixed; bottom: 20px; right: 20px; padding: 15px 25px; border-radius: 5px;
+          color: white; z-index: 10000; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+          background-color: ${type === 'success' ? '#4CAF50' : '#F44336'};
+          animation: slideInRight 0.5s, fadeOut 0.5s 2.5s forwards;
+        `;
+        document.body.appendChild(notification);
+        setTimeout(() => notification.remove(), 3000);
+      }
+
+      // --- ADMIN USER MANAGEMENT ---
+      function ensureAdminExists() {
+        let registrationData = JSON.parse(localStorage.getItem('RegistrationData')) || [];
+        const adminTrn = '000-000-000';
+        let adminUser = registrationData.find(user => user.trn === adminTrn);
+
+        if (!adminUser) {
+          adminUser = {
+            name: 'Site Administrator',
+            trn: adminTrn,
+            password: 'admin123',
+            isAdmin: true
+          };
+          registrationData.push(adminUser);
+          console.log('Admin user created.');
+        } else if (!adminUser.isAdmin) {
+          adminUser.isAdmin = true;
+          adminUser.password = 'admin123';
+          console.log('Existing admin user repaired.');
+        }
+
+        localStorage.setItem('RegistrationData', JSON.stringify(registrationData));
+      }
+
+      // --- INITIALIZATION ---
+      ensureAdminExists();
+
+      // --- LOGIN LOGIC ---
+      const loginForm = document.getElementById('loginForm');
+      if (loginForm) {
+        let loginAttempts = 3;
+        const loginError = document.getElementById('loginError');
+        const loginSuccess = document.getElementById('loginSuccess');
+        const attemptsRemaining = document.getElementById('attemptsRemaining');
+        const loginBtn = loginForm.querySelector('button[type="submit"]');
+
+        loginForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const trn = document.getElementById('loginTrn').value.trim();
+          const password = document.getElementById('loginPassword').value;
+          const registrationData = JSON.parse(localStorage.getItem('RegistrationData')) || [];
+          const user = registrationData.find(u => u.trn === trn);
+          
+          if (!user || user.password !== password) {
+            loginError.textContent = user ? 'Invalid password.' : 'TRN not found.';
+            loginError.style.display = 'block';
+            loginSuccess.style.display = 'none';
+            loginAttempts--;
+            attemptsRemaining.textContent = `Attempts remaining: ${loginAttempts}`;
+            if (loginAttempts <= 0) {
+              showNotification('Account locked. Too many failed attempts.', 'error');
+              loginBtn.disabled = true;
+            }
+            return;
+          }
+          
+          loginSuccess.textContent = 'Login successful! Redirecting...';
+          loginSuccess.style.display = 'block';
+          loginError.style.display = 'none';
+          sessionStorage.setItem('currentUserTrn', trn);
+          
+          setTimeout(() => window.location.href = 'index.html', 1500);
+        });
+      }
+      
+      // --- PASSWORD RESET LOGIC ---
+      const resetPasswordModal = document.getElementById('resetPasswordModal');
+      const openResetPasswordBtn = document.getElementById('openResetPassword');
+      if (resetPasswordModal && openResetPasswordBtn) {
+        openResetPasswordBtn.onclick = () => resetPasswordModal.style.display = 'flex';
+        resetPasswordModal.querySelector('.close').onclick = () => {
+          resetPasswordModal.style.display = 'none';
+          resetPasswordModal.querySelector('form').reset();
+        };
+        resetPasswordModal.querySelector('form').addEventListener('submit', function(e) {
+          e.preventDefault();
+          const trn = document.getElementById('resetTrn').value.trim();
+          const newPass = document.getElementById('newPassword').value;
+          const confirmPass = document.getElementById('confirmPassword').value;
+          const resetError = document.getElementById('resetError');
+          const resetSuccess = document.getElementById('resetSuccess');
+          
+          if (newPass !== confirmPass) {
+            resetError.textContent = 'Passwords do not match.';
+            resetError.style.display = 'block';
+            return;
+          }
+          if (newPass.length < 8) {
+            resetError.textContent = 'Password must be at least 8 characters.';
+            resetError.style.display = 'block';
+            return;
+          }
+
+          let registrationData = JSON.parse(localStorage.getItem('RegistrationData')) || [];
+          const userIndex = registrationData.findIndex(u => u.trn === trn);
+          if (userIndex === -1) {
+            resetError.textContent = 'TRN not found.';
+            resetError.style.display = 'block';
+            return;
+          }
+          
+          registrationData[userIndex].password = newPass;
+          localStorage.setItem('RegistrationData', JSON.stringify(registrationData));
+          resetSuccess.textContent = 'Password reset successfully!';
+          resetSuccess.style.display = 'block';
+          resetError.style.display = 'none';
+          
+          setTimeout(() => {
+            resetPasswordModal.style.display = 'none';
+            resetPasswordModal.querySelector('form').reset();
+          }, 2000);
+        });
+      }
+    });
+  </script>
 </body>
 </html>
