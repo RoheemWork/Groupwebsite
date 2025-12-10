@@ -77,6 +77,66 @@
     </div>
   </footer>
 
-  <script src="scripts.js"></script>
+  <!-- =================================================================== -->
+  <!-- JAVASCRIPT FOR invoice.html -->
+  <!-- =================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // --- UTILITY FUNCTIONS ---
+      function showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        notification.style.cssText = `
+          position: fixed; bottom: 20px; right: 20px; padding: 15px 25px; border-radius: 5px;
+          color: white; z-index: 10000; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+          background-color: ${type === 'success' ? '#4CAF50' : '#F44336'};
+          animation: slideInRight 0.5s, fadeOut 0.5s 2.5s forwards;
+        `;
+        document.body.appendChild(notification);
+        setTimeout(() => notification.remove(), 3000);
+      }
+
+      // --- INVOICE PAGE LOGIC ---
+      const invoice = JSON.parse(sessionStorage.getItem('currentInvoice'));
+
+      // A security check to prevent direct access to the invoice page.
+      if (!invoice) {
+        showNotification("No invoice found. Redirecting to home.", 'error');
+        setTimeout(() => window.location.href = 'index.html', 1500);
+        return;
+      }
+
+      // Populate the page with the invoice data.
+      document.getElementById('invoiceCompany').textContent = invoice.company;
+      document.getElementById('invoiceNumber').textContent = invoice.invoiceNumber;
+      document.getElementById('invoiceDate').textContent = invoice.date;
+      document.getElementById('invoiceCustomerName').textContent = invoice.shippingInfo.fullName;
+      document.getElementById('invoiceCustomerAddress').textContent = invoice.shippingInfo.address.replace(/\n/g, '<br>');
+      document.getElementById('invoiceTrn').textContent = invoice.trn;
+
+      // Dynamically create the table rows for each item in the invoice.
+      const invoiceItemsTableBody = document.querySelector('#invoiceItemsTable tbody');
+      invoice.items.forEach(item => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>${item.quantity}</td>
+          <td>$${item.price.toFixed(2)}</td>
+          <td>$${item.total.toFixed(2)}</td>
+        `;
+        invoiceItemsTableBody.appendChild(row);
+      });
+
+      // Populate the total costs.
+      document.getElementById('invoiceSubtotal').textContent = `$${invoice.subtotal.toFixed(2)}`;
+      document.getElementById('invoiceTax').textContent = `$${invoice.tax.toFixed(2)}`;
+      document.getElementById('invoiceTotal').textContent = `$${invoice.total.toFixed(2)}`;
+
+      // Clean up the session storage so the invoice can't be viewed again.
+      sessionStorage.removeItem('currentInvoice');
+    });
+  </script>
 </body>
 </html>
