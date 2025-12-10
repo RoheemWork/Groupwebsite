@@ -292,7 +292,223 @@
     </div>
   </footer>
 
-  <!-- Link to the shared JavaScript file -->
-  <script src="scripts.js"></script>
+  <!-- =================================================================== -->
+  <!-- JAVASCRIPT FOR index.html -->
+  <!-- =================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // --- VARIABLE DECLARATIONS ---
+      const profileIcon = document.getElementById("profileIcon");
+      const profileInitial = document.getElementById("profileInitial");
+      const profileName = document.getElementById("profileName");
+      const profileContainer = document.getElementById("profileContainer");
+      const searchInput = document.querySelector('#searchDropdown input');
+      const searchResults = document.querySelector('.search-results');
+      const slides = document.querySelectorAll('.slide');
+
+      // --- INITIALIZATION ---
+      ensureAdminExists();
+      checkLoginStatus();
+      updateCartCount();
+
+      // --- UTILITY FUNCTIONS ---
+      function showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        notification.style.cssText = `
+          position: fixed; bottom: 20px; right: 20px; padding: 15px 25px; border-radius: 5px;
+          color: white; z-index: 10000; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+          background-color: ${type === 'success' ? '#4CAF50' : '#F44336'};
+          animation: slideInRight 0.5s, fadeOut 0.5s 2.5s forwards;
+        `;
+        document.body.appendChild(notification);
+        setTimeout(() => notification.remove(), 3000);
+      }
+
+      // --- ADMIN USER MANAGEMENT ---
+      function ensureAdminExists() {
+        let registrationData = JSON.parse(localStorage.getItem('RegistrationData')) || [];
+        const adminTrn = '000-000-000';
+        let adminUser = registrationData.find(user => user.trn === adminTrn);
+        if (!adminUser) {
+          adminUser = {
+            name: 'Site Administrator',
+            trn: adminTrn,
+            password: 'admin123',
+            isAdmin: true
+          };
+          registrationData.push(adminUser);
+          console.log('Admin user created.');
+        } else if (!adminUser.isAdmin) {
+          adminUser.isAdmin = true;
+          adminUser.password = 'admin123';
+          console.log('Existing admin user repaired.');
+        }
+        localStorage.setItem('RegistrationData', JSON.stringify(registrationData));
+      }
+
+      // --- PROFILE & AUTHENTICATION ---
+      function updateProfileDisplay(user) {
+        if (!profileIcon || !profileInitial || !profileName || !profileContainer) {
+          return;
+        }
+        const existingLink = profileContainer.querySelector('.dashboard-link');
+        if (existingLink) {
+          existingLink.remove();
+        }
+        if (user && user.name) {
+          profileIcon.style.display = "none";
+          profileInitial.style.display = "flex";
+          profileInitial.textContent = user.name.charAt(0).toUpperCase();
+          profileName.style.display = "inline";
+          profileName.textContent = user.name;
+          if (user.isAdmin) {
+            const dashboardLink = document.createElement('a');
+            dashboardLink.href = 'dashboard.html';
+            dashboardLink.className = 'dashboard-link';
+            dashboardLink.textContent = 'Admin Dashboard';
+            dashboardLink.style.cssText = 'margin-left: 15px; font-size: 14px; color: #007bff;';
+            profileContainer.appendChild(dashboardLink);
+          }
+        } else {
+          profileIcon.style.display = "flex";
+          profileInitial.style.display = "none";
+          profileName.style.display = "none";
+        }
+      }
+
+      function checkLoginStatus() {
+        const currentUserTrn = sessionStorage.getItem('currentUserTrn');
+        if (currentUserTrn) {
+          const registrationData = JSON.parse(localStorage.getItem('RegistrationData')) || [];
+          const userData = registrationData.find(user => user.trn === currentUserTrn);
+          if (userData) {
+            updateProfileDisplay(userData);
+            return userData;
+          }
+        }
+        updateProfileDisplay(null);
+        return null;
+      }
+
+      if (profileContainer) {
+        profileContainer.addEventListener('click', () => {
+          const isLoggedIn = profileName.style.display !== "none";
+          if (isLoggedIn) {
+            if (confirm("Are you sure you want to logout?")) {
+              sessionStorage.removeItem('currentUserTrn');
+              updateProfileDisplay(null);
+              showNotification("Logged out successfully");
+              if (window.location.pathname !== 'index.html') {
+                window.location.href = 'index.html';
+              }
+            }
+          } else {
+            window.location.href = 'login.html';
+          }
+        });
+      }
+
+      // --- CART FUNCTIONALITY ---
+      function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem("dripcaseCart")) || [];
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        let badge = document.querySelector('.cart-badge');
+        if (!badge && document.getElementById('cartIcon')) {
+          badge = document.createElement('span');
+          badge.className = 'cart-badge';
+          document.getElementById('cartIcon').parentElement.appendChild(badge);
+        }
+        if (badge) {
+          badge.textContent = totalItems;
+          badge.style.display = totalItems > 0 ? 'flex' : 'none';
+        }
+      }
+
+      document.querySelectorAll(".addToCartBtn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const name = btn.dataset.name;
+          const price = parseFloat(btn.dataset.price);
+          let cart = JSON.parse(localStorage.getItem("dripcaseCart")) || [];
+          const existing = cart.find(item => item.name === name);
+          if (existing) {
+            existing.quantity += 1;
+            showNotification(`${name} quantity updated in cart`);
+          } else {
+            cart.push({ name, price, quantity: 1 });
+            showNotification(`${name} added to cart`);
+          }
+          localStorage.setItem("dripcaseCart", JSON.stringify(cart));
+          updateCartCount();
+        });
+      });
+
+      // --- DROPDOWNS ---
+      function showDropdown(targetId) {
+        const target = document.getElementById(targetId);
+        const isOpen = target.style.display === 'flex';
+        document.querySelectorAll('.dropdown').forEach(d => d.style.display = 'none');
+        if (!isOpen) target.style.display = 'flex';
+      }
+      document.getElementById("menuIcon")?.addEventListener('click', e => { e.stopPropagation(); showDropdown("menuDropdown"); });
+      document.getElementById("searchIcon")?.addEventListener('click', e => { e.stopPropagation(); showDropdown("searchDropdown"); });
+      document.addEventListener("click", () => document.querySelectorAll('.dropdown').forEach(d => d.style.display = 'none'));
+
+      // --- SEARCH ---
+      if (searchInput && searchResults) {
+        searchInput.addEventListener('input', e => {
+          const query = e.target.value.toLowerCase().trim();
+          if (query.length < 2) { searchResults.innerHTML = ''; return; }
+          
+          const products = [];
+          document.querySelectorAll('.product').forEach(productEl => {
+            const name = productEl.querySelector('p').textContent.toLowerCase();
+            if (name.includes(query)) {
+              const img = productEl.querySelector('img').src;
+              const price = productEl.querySelectorAll('p')[1].textContent;
+              products.push({ name: productEl.querySelector('p').textContent, price, img });
+            }
+          });
+          
+          searchResults.innerHTML = products.length === 0 ? '<p>No products found</p>' :
+            products.map(p => `
+              <div class="search-result-item" data-name="${p.name}">
+                <img src="${p.img}" alt="${p.name}">
+                <div><div>${p.name}</div><div>${p.price}</div></div>
+              </div>
+            `).join('');
+          
+          searchResults.querySelectorAll('.search-result-item').forEach(item => {
+            item.addEventListener('click', () => {
+              document.getElementById('searchDropdown').style.display = 'none';
+              searchInput.value = '';
+              document.querySelectorAll('.product').forEach(p => {
+                if (p.querySelector('p').textContent === item.dataset.name) {
+                  p.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  p.style.transition = 'background-color 0.5s';
+                  p.style.backgroundColor = '#ffffcc';
+                  setTimeout(() => p.style.backgroundColor = '', 2000);
+                }
+              });
+            });
+          });
+        });
+      }
+
+      // --- SLIDESHOW ---
+      if (slides.length > 0) {
+        let index = 0;
+        function showSlide(n) { slides.forEach((s, i) => s.classList.toggle('active', i === n)); }
+        function nextSlide() { index = (index + 1) % slides.length; showSlide(index); }
+        function prevSlide() { index = (index - 1 + slides.length) % slides.length; showSlide(index); }
+        showSlide(0);
+        document.querySelector('.next')?.addEventListener('click', nextSlide);
+        document.querySelector('.prev')?.addEventListener('click', prevSlide);
+        setInterval(nextSlide, 4000); 
+      }
+    });
+  </script>
 </body>
 </html>
